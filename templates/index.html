@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hacker House Goa — Frame Your Build</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="home">
+  <div class="noise"></div>
+  <div class="cursor-glow"></div>
+  <div class="orb orb-a"></div><div class="orb orb-b"></div><div class="orb orb-c"></div>
+
+  <header class="nav glass">
+    <div class="brand">
+      <span class="brand-hacker">HACKER</span>
+      <span class="brand-goa">गोवा</span>
+      <span class="brand-house">HOUSE</span>
+    </div>
+    <div class="nav-pill"><span class="live-dot"></span> BUILD • FRAME • GOA</div>
+  </header>
+
+  <main class="hero">
+    <div class="hero-bg"></div>
+    <div class="floating-flower flower-1">✿</div>
+    <div class="floating-flower flower-2">✿</div>
+    <div class="floating-flower flower-3">✿</div>
+
+    <section class="hero-copy">
+      <div class="eyebrow"><span>✦</span> THE GOA BUILDER ERA <span>✦</span></div>
+      <h1>
+        YOUR BUILD.<br>
+        <span class="gold-text">YOUR FRAME.</span><br>
+        <span class="script-goa">गोवा</span>
+      </h1>
+      <p class="hero-sub">
+        Turn your photo into a piece of <b>Hacker House Goa</b> —
+        illustrated, loud, tropical and unmistakably yours.
+      </p>
+      <div class="cta-row">
+        <a href="/builder" class="cta">
+          <span>CREATE MY FRAME</span><b>↗</b>
+        </a>
+        <div class="micro">NO LOGIN • NO SIGNUP • ONE PASS</div>
+      </div>
+    </section>
+
+    <section class="hero-art">
+      <div class="art-ring ring-1"></div>
+      <div class="art-ring ring-2"></div>
+      <div class="poster">
+        <img src="/static/theme/theme1.png" alt="Hacker House Goa frame">
+        <div class="poster-shine"></div>
+        <div class="poster-stamp">FRAME<br><small>IN GOA</small></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="ticker">
+    <div>HACKER HOUSE GOA ✦ BUILD SOMETHING WILD ✦ FRAME YOUR JOURNEY ✦ #FRAMEINGOA ✦ HACKER HOUSE GOA ✦</div>
+  </div>
+
+  <section class="feature-strip">
+    <div class="feature"><span>01</span><b>UPLOAD</b><small>JPG • PNG • HEIC</small></div>
+    <div class="feature"><span>02</span><b>STYLE</b><small>COMIC • GOAN • LOUD</small></div>
+    <div class="feature"><span>03</span><b>FRAME</b><small>NAME • STACK • ROLE</small></div>
+    <div class="feature"><span>04</span><b>SHARE</b><small>DOWNLOAD • X</small></div>
+  </section>
+
+  <script>
+    const glow = document.querySelector('.cursor-glow');
+    window.addEventListener('pointermove', e => {
+      glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    });
+    document.querySelector('.cta').addEventListener('pointermove', e => {
+      const r = e.currentTarget.getBoundingClientRect();
+      const x = (e.clientX-r.left)/r.width*100;
+      const y = (e.clientY-r.top)/r.height*100;
+      e.currentTarget.style.setProperty('--mx', x+'%');
+      e.currentTarget.style.setProperty('--my', y+'%');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>
+        Build Your Frame — Hacker House Goa
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* =====================================================
+           BUILDER PREVIEW
+           ===================================================== */
+
+        .preview-stage {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1402 / 1122;
+            background: #071f18;
+            border-radius: 14px;
+            touch-action: none;
+        }
+
+        #themePreview {
+            position: absolute;
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+
+            z-index: 1;
+
+            pointer-events: none;
+            user-select: none;
+        }
+
+
+        /* =====================================================
+           PHOTO WINDOW
+           ===================================================== */
+
+        #photoWindow {
+
+            position: absolute;
+
+            /*
+             * Flower ring in the supplied theme.png.
+             *
+             * These are percentages of the complete artwork.
+             */
+
+            left: 26.7%;
+            top: 31.0%;
+
+            width: 28.5%;
+            height: 38.0%;
+
+            z-index: 5;
+
+            overflow: hidden;
+
+            border-radius: 50%;
+
+            pointer-events: auto;
+
+            touch-action: none;
+        }
+
+
+        /* =====================================================
+           USER PHOTO
+           ===================================================== */
+
+        #photoLayer {
+
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            width: 100%;
+            height: 100%;
+
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+
+            transform:
+                translate(-50%, -50%)
+                scale(1);
+
+            transform-origin: center center;
+
+            cursor: grab;
+
+            touch-action: none;
+
+            user-select: none;
+
+            will-change: transform;
+
+            border-radius: 50%;
+        }
+
+        #photoLayer:active {
+            cursor: grabbing;
+        }
+
+
+        /* =====================================================
+           PHOTO INNER EDGE
+           ===================================================== */
+
+        #photoWindow::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            box-shadow:
+                inset 0 0 0 2px
+                rgba(245, 234, 216, 0.45),
+
+                inset 0 0 22px
+                rgba(2, 29, 23, 0.18);
+        }
+
+
+        /* =====================================================
+           HINT
+           ===================================================== */
+
+        .preview-hint {
+
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            z-index: 30;
+
+            pointer-events: none;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+
+            color: white;
+
+            background:
+                rgba(0, 0, 0, .45);
+
+            padding: 12px 16px;
+
+            border-radius: 999px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           CONTROLS
+           ===================================================== */
+
+        .controls {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 16px;
+
+            margin-top: 15px;
+        }
+
+        .controls input[type="range"] {
+            width: 180px;
+            accent-color: #f5c83d;
+        }
+
+
+        /* =====================================================
+           REMOVE OLD SHAPE UI
+           ===================================================== */
+
+        .shape-row {
+            display: none !important;
+        }
+
+
+        /* =====================================================
+           FORM
+           ===================================================== */
+
+        .form-card {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .upload {
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           RESULT
+           ===================================================== */
+
+        #resultImg {
+
+            width: 100%;
+
+            height: auto;
+
+            display: block;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0, 0, 0, .35);
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            #photoWindow {
+
+                left: 23%;
+
+                top: 26%;
+
+                width: 39.5%;
+
+                height: 50%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="builder-page">
+
+<div class="noise"></div>
+
+
+<!-- =========================================================
+     NAV
+     ========================================================= -->
+
+<header class="nav glass">
+
+    <a
+        class="back"
+        href="/"
+    >
+        ← GO BACK
+    </a>
+
+    <div class="brand">
+
+        <span class="brand-hacker">
+            HACKER
+        </span>
+
+        <span class="brand-goa">
+            गोवा
+        </span>
+
+        <span class="brand-house">
+            HOUSE
+        </span>
+
+    </div>
+
+    <div class="nav-pill">
+        #FRAMEINGOA
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
+<main class="builder-shell">
+
+
+    <!-- =====================================================
+         INTRO
+         ===================================================== -->
+
+    <section class="builder-intro">
+
+        <div class="eyebrow">
+            ✦ BUILD YOUR GOA FRAME
+        </div>
+
+        <h1>
+            Make it
+            <span class="gold-text">
+                yours.
+            </span>
+        </h1>
+
+        <p>
+            Upload your photo, position yourself inside the
+            Goa flower frame, add your details and generate.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         BUILDER
+         ===================================================== -->
+
+    <section class="builder-grid">
+
+
+        <!-- =================================================
+             PREVIEW
+             ================================================= -->
+
+        <div class="preview-card glass">
+
+            <div class="preview-head">
+
+                <span>
+                    LIVE PREVIEW
+                </span>
+
+                <span id="zoomLabel">
+                    100%
+                </span>
+
+            </div>
+
+
+            <div class="preview-stage">
+
+                <!-- THEME NEVER MOVES -->
+
+                <img
+                    id="themePreview"
+                    src="/static/theme/theme.png"
+                    alt="Hacker House Goa frame"
+                >
+
+
+                <!-- PHOTO WINDOW -->
+
+                <div id="photoWindow">
+
+                    <div id="photoLayer"></div>
+
+                </div>
+
+
+                <!-- HINT -->
+
+                <div
+                    class="preview-hint"
+                    id="hint"
+                >
+                    UPLOAD A PHOTO TO START
+                </div>
+
+            </div>
+
+
+            <!-- CONTROLS -->
+
+            <div class="controls">
+
+                <label>
+
+                    ZOOM
+
+                    <input
+                        id="zoom"
+                        type="range"
+                        min="1"
+                        max="3"
+                        step="0.01"
+                        value="1"
+                    >
+
+                </label>
+
+
+                <button
+                    id="reset"
+                    type="button"
+                >
+                    RESET POSITION
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             FORM
+             ================================================= -->
+
+        <div class="form-card glass">
+
+
+            <!-- UPLOAD -->
+
+            <label class="upload">
+
+                <input
+                    id="photo"
+                    type="file"
+                    accept="
+                        .jpg,
+                        .jpeg,
+                        .png,
+                        .heic,
+                        .heif,
+                        image/jpeg,
+                        image/png,
+                        image/heic,
+                        image/heif
+                    "
+                >
+
+                <span class="upload-icon">
+                    ＋
+                </span>
+
+                <b>
+                    DROP YOUR PHOTO
+                </b>
+
+                <small>
+                    JPG / PNG / HEIC • UP TO 15MB
+                </small>
+
+            </label>
+
+
+            <!-- NAME -->
+
+            <label>
+
+                NAME
+
+                <input
+                    id="name"
+                    type="text"
+                    maxlength="32"
+                    placeholder="Your name"
+                >
+
+            </label>
+
+
+            <!-- STACK -->
+
+            <label>
+
+                STACK
+
+                <input
+                    id="stack"
+                    type="text"
+                    maxlength="40"
+                    placeholder="Example: React"
+                >
+
+            </label>
+
+
+            <!-- ROLE -->
+
+            <label>
+
+                ROLE
+
+                <input
+                    id="role"
+                    type="text"
+                    maxlength="40"
+                    placeholder="Example: Developer / Designer / Builder"
+                >
+
+            </label>
+
+
+            <!-- GENERATE -->
+
+            <button
+                id="generate"
+                class="cta big"
+                type="button"
+            >
+
+                GENERATE MY FRAME
+
+                <b>
+                    ↗
+                </b>
+
+            </button>
+
+
+            <p
+                id="status"
+                class="status"
+            ></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         RESULT
+         ===================================================== -->
+
+    <section
+        id="result"
+        class="result glass hidden"
+    >
+
+        <div>
+
+            <div class="eyebrow">
+                ✦ YOUR FRAME IS READY
+            </div>
+
+            <h2>
+                Go make some noise.
+            </h2>
+
+            <img
+                id="resultImg"
+                alt="Generated Hacker House Goa frame"
+            >
+
+        </div>
+
+
+        <div class="result-actions">
+
+
+            <a
+                id="download"
+                class="cta"
+                download="hacker-house-goa-frame.png"
+            >
+
+                DOWNLOAD PNG
+
+                <b>
+                    ↓
+                </b>
+
+            </a>
+
+
+            <button
+                id="share"
+                class="cta secondary"
+                type="button"
+            >
+
+                SHARE TO X
+
+                <b>
+                    𝕏
+                </b>
+
+            </button>
+
+
+            <button
+                id="again"
+                class="cta secondary"
+                type="button"
+            >
+
+                GENERATE AGAIN
+
+                <b>
+                    ↻
+                </b>
+
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script src="/static/js/builder.js"></script>
+
+</body>
+
+</html>

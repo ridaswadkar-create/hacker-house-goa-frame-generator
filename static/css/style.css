@@ -1,0 +1,1140 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+:root {
+    --green: #063b2c;
+    --deep: #021d17;
+    --gold: #f5c83d;
+    --pink: #ec2f72;
+    --cream: #f5ead8;
+    --wood: #6b3d25;
+    --lime: #93bd53;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--deep);
+    color: var(--cream);
+    font-family: "DM Sans", sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.noise {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+    opacity: .055;
+
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+}
+
+.cursor-glow {
+    position: fixed;
+    z-index: 30;
+    pointer-events: none;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(245,200,61,.18),
+        transparent 68%
+    );
+
+    left: -125px;
+    top: -125px;
+    filter: blur(4px);
+    transition: transform .08s linear;
+}
+
+.glass {
+    background: rgba(4,39,30,.64);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(245,200,61,.18);
+    box-shadow: 0 20px 70px rgba(0,0,0,.28);
+}
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+.nav {
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5vw;
+    position: relative;
+    z-index: 10;
+}
+
+.brand {
+    position: relative;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    line-height: .7;
+    font-size: 18px;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.brand-hacker,
+.brand-house {
+    color: var(--gold);
+    letter-spacing: -1px;
+}
+
+.brand-goa {
+    color: var(--pink);
+    font-size: 24px;
+    text-shadow: 2px 2px #f3a0b9;
+}
+
+.nav-pill {
+    font-size: 11px;
+    letter-spacing: 2px;
+    border: 1px solid rgba(245,200,61,.35);
+    padding: 10px 15px;
+    border-radius: 99px;
+    color: #e8d9ad;
+}
+
+.back {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #d9cfba;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.live-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ff477d;
+    box-shadow: 0 0 16px #ff477d;
+    animation: pulse 1s infinite;
+    margin-right: 8px;
+}
+
+.hero {
+    min-height: calc(100vh - 76px);
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 7vh 7vw;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            115deg,
+            rgba(2,29,23,.96) 15%,
+            rgba(2,29,23,.66),
+            rgba(2,29,23,.9)
+        ),
+        url("/static/theme/theme.png") center/cover;
+
+    filter: saturate(1.25);
+    transform: scale(1.08);
+    animation: slowPan 16s ease-in-out infinite alternate;
+    z-index: -2;
+}
+
+.hero:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 70% 40%,
+            transparent 0,
+            rgba(2,29,23,.65) 70%
+        );
+
+    z-index: -1;
+}
+
+.hero-copy {
+    max-width: 700px;
+    position: relative;
+    z-index: 2;
+    animation: rise .9s both;
+}
+
+.eyebrow {
+    color: var(--gold);
+    letter-spacing: 4px;
+    font-weight: 800;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: clamp(58px,8vw,124px);
+    line-height: .82;
+    margin: 0;
+    letter-spacing: -5px;
+    text-transform: uppercase;
+}
+
+.gold-text {
+    color: var(--gold);
+    text-shadow: 0 0 35px rgba(245,200,61,.2);
+}
+
+.script-goa {
+    font-family: "Playfair Display", serif;
+    color: var(--pink);
+    font-size: .7em;
+    display: inline-block;
+    transform: rotate(-3deg);
+    text-shadow: 5px 5px 0 rgba(245,200,61,.22);
+}
+
+.hero-sub {
+    max-width: 550px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #e8ddc5;
+    margin: 30px 0;
+}
+
+.cta-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    min-width: 220px;
+    padding: 17px 20px;
+
+    background: var(--gold);
+    color: #163426;
+
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    border: 0;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    box-shadow: 0 0 0 rgba(245,200,61,0);
+    transition: .25s;
+}
+
+.cta:before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+
+    left: var(--mx,50%);
+    top: var(--my,50%);
+
+    transform: translate(-50%,-50%);
+
+    background: rgba(255,255,255,.22);
+    filter: blur(30px);
+    opacity: 0;
+    transition: .2s;
+}
+
+.cta:hover {
+    transform: translateY(-5px) rotate(-.5deg);
+    box-shadow: 0 18px 45px rgba(245,200,61,.25);
+}
+
+.cta:hover:before {
+    opacity: 1;
+}
+
+.cta b {
+    font-size: 22px;
+}
+
+.micro {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #9fb1a6;
+}
+
+
+/* =========================================================
+   HERO ART
+========================================================= */
+
+.hero-art {
+    height: 640px;
+    position: relative;
+    display: grid;
+    place-items: center;
+    perspective: 1000px;
+}
+
+.poster {
+    width: min(520px,90%);
+    transform: rotate(3deg) rotateX(2deg);
+    position: relative;
+    box-shadow: 25px 35px 70px rgba(0,0,0,.55);
+    animation: float 5s ease-in-out infinite;
+}
+
+.poster img {
+    width: 100%;
+    display: block;
+}
+
+.poster:before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border: 1px solid rgba(245,200,61,.4);
+    transform: rotate(-2deg);
+    pointer-events: none;
+}
+
+.poster-shine {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 30%,
+            rgba(255,255,255,.24) 50%,
+            transparent 70%
+        );
+
+    transform: translateX(-130%);
+    animation: shine 4.5s infinite;
+}
+
+.poster-stamp {
+    position: absolute;
+    right: -28px;
+    bottom: 30px;
+
+    background: var(--pink);
+    padding: 12px 17px;
+
+    font-weight: 900;
+    letter-spacing: 2px;
+
+    transform: rotate(-8deg);
+
+    box-shadow: 8px 10px 0 rgba(245,200,61,.8);
+
+    animation: wobble 3s infinite;
+}
+
+.poster-stamp small {
+    font-size: 8px;
+    color: white;
+}
+
+.art-ring {
+    position: absolute;
+    border: 1px solid rgba(245,200,61,.25);
+    border-radius: 50%;
+    animation: spin 18s linear infinite;
+}
+
+.ring-1 {
+    width: 590px;
+    height: 590px;
+}
+
+.ring-2 {
+    width: 680px;
+    height: 680px;
+    border-style: dashed;
+    animation-direction: reverse;
+    animation-duration: 30s;
+}
+
+.floating-flower {
+    position: absolute;
+    color: var(--pink);
+    font-size: 48px;
+    text-shadow: 0 0 25px rgba(236,47,114,.55);
+    animation: flowerFloat 6s ease-in-out infinite;
+    z-index: 2;
+}
+
+.flower-1 {
+    left: 3%;
+    top: 14%;
+}
+
+.flower-2 {
+    right: 43%;
+    top: 8%;
+    animation-delay: 1s;
+}
+
+.flower-3 {
+    right: 4%;
+    bottom: 14%;
+    animation-delay: 2s;
+}
+
+
+/* =========================================================
+   TICKER
+========================================================= */
+
+.ticker {
+    overflow: hidden;
+    white-space: nowrap;
+    background: var(--pink);
+    color: white;
+    font-weight: 900;
+    letter-spacing: 4px;
+    padding: 14px 0;
+
+    transform: rotate(-1deg) scale(1.03);
+
+    box-shadow: 0 0 30px rgba(236,47,114,.3);
+}
+
+.ticker div {
+    display: inline-block;
+    animation: marquee 24s linear infinite;
+}
+
+.feature-strip {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    background: #052c22;
+    border-top: 1px solid rgba(245,200,61,.12);
+}
+
+.feature {
+    padding: 28px 4vw;
+    border-right: 1px solid rgba(245,200,61,.1);
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.feature span {
+    font-size: 10px;
+    color: var(--pink);
+}
+
+.feature b {
+    font-size: 20px;
+    color: var(--gold);
+}
+
+.feature small {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #91a99d;
+}
+
+
+/* =========================================================
+   BUILDER PAGE
+========================================================= */
+
+.builder-page {
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(236,47,114,.13),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 85% 30%,
+            rgba(245,200,61,.12),
+            transparent 25%
+        ),
+        var(--deep);
+}
+
+.builder-shell {
+    max-width: 1250px;
+    margin: auto;
+    padding: 70px 5vw;
+}
+
+.builder-intro h1 {
+    font-size: clamp(50px,7vw,90px);
+    margin: 0;
+}
+
+.builder-intro p {
+    color: #b9c5be;
+    max-width: 620px;
+}
+
+.builder-grid {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 28px;
+    margin-top: 45px;
+}
+
+.preview-card,
+.form-card,
+.result {
+    padding: 20px;
+    border-radius: 20px;
+}
+
+
+/* =========================================================
+   PREVIEW HEADER
+========================================================= */
+
+.preview-head {
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #b6c8bd;
+
+    margin-bottom: 14px;
+}
+
+
+/* =========================================================
+   PREVIEW STAGE
+========================================================= */
+
+.preview-stage {
+    position: relative;
+    overflow: hidden;
+
+    background: #071f18;
+
+    border-radius: 12px;
+
+    /*
+     * Same ratio as the theme image.
+     */
+    aspect-ratio: 1402 / 1122;
+
+    touch-action: none;
+}
+
+
+/* =========================================================
+   FIXED THEME
+========================================================= */
+
+#themePreview {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    /*
+     * VERY IMPORTANT:
+     *
+     * The theme itself never changes size.
+     */
+    object-fit: cover;
+
+    z-index: 10;
+
+    pointer-events: none;
+
+    user-select: none;
+}
+
+
+/* =========================================================
+   FIXED PHOTO WINDOW
+========================================================= */
+
+/*
+ * THIS DOES NOT MOVE.
+ *
+ * This represents the paper area in the theme.
+ *
+ * The uploaded photo exists INSIDE this window.
+ */
+
+#photoWindow {
+    position: absolute;
+
+    /*
+     * Paper position.
+     *
+     * These percentages are relative to theme.png.
+     */
+
+    left: 20%;
+    top: 20%;
+
+    width: 44%;
+    height: 30%;
+
+    overflow: hidden;
+
+    z-index: 5;
+
+    pointer-events: auto;
+
+    /*
+     * Makes sure the photo cannot escape the paper.
+     */
+    clip-path: inset(0);
+}
+
+
+/* =========================================================
+   UPLOADED PHOTO
+========================================================= */
+
+#photoLayer {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 100%;
+    height: 100%;
+
+    /*
+     * IMPORTANT:
+     *
+     * background-size belongs to the PHOTO.
+     * It does NOT affect the theme.
+     */
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    transform:
+        translate(-50%,-50%)
+        scale(1);
+
+    transform-origin: center center;
+
+    cursor: grab;
+
+    touch-action: none;
+
+    user-select: none;
+
+    will-change: transform;
+
+    pointer-events: auto;
+}
+
+#photoLayer:active {
+    cursor: grabbing;
+}
+
+.details-layer {
+    position: absolute;
+    left: 50%;
+    top: 59%;
+    transform: translate(-50%,-50%);
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 72%;
+    text-align: center;
+    color: #f7f0e5;
+    font-family: "Bodoni Moda", serif;
+}
+
+.detail-name,
+.detail-stack,
+.detail-role {
+    width: 100%;
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.detail-name {
+    font-size: clamp(28px, 2.5vw, 52px);
+    font-weight: 600;
+}
+
+.detail-stack {
+    font-size: clamp(18px, 1.6vw, 30px);
+    font-weight: 500;
+}
+
+.detail-role {
+    font-size: clamp(16px, 1.4vw, 24px);
+    font-weight: 500;
+}
+
+#photoLayer.has-photo {
+    box-shadow:
+        inset 0 0 30px
+        rgba(245,234,216,.2);
+}
+
+
+/* =========================================================
+   PREVIEW HINT
+========================================================= */
+
+.preview-hint {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%,-50%);
+
+    z-index: 20;
+
+    font-size: 10px;
+    letter-spacing: 2px;
+
+    color: white;
+
+    background: rgba(0,0,0,.4);
+
+    padding: 12px 15px;
+
+    border-radius: 99px;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 15px;
+
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.controls input {
+    width: 180px;
+    accent-color: var(--gold);
+}
+
+.controls button {
+    background: transparent;
+
+    color: #b8c8bf;
+
+    border: 1px solid rgba(245,200,61,.2);
+
+    padding: 9px;
+
+    font-size: 9px;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.upload {
+    border: 1px dashed rgba(245,200,61,.45);
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+
+    cursor: pointer;
+
+    background: rgba(245,200,61,.035);
+}
+
+.upload input {
+    display: none;
+}
+
+.upload-icon {
+    font-size: 40px;
+    color: var(--pink);
+}
+
+.upload b {
+    color: var(--gold);
+}
+
+.upload small {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #8da79a;
+}
+
+.field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #aebdb5;
+
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+input[type=text],
+label input:not([type=range]) {
+    background: #061f18;
+
+    border: 1px solid rgba(245,200,61,.18);
+
+    color: white;
+
+    padding: 13px;
+
+    outline: 0;
+
+    font: inherit;
+}
+
+
+/*
+ * Shape selector has been removed.
+ *
+ * There should be NO .shape-row or .shape rules.
+ */
+
+
+/* =========================================================
+   GENERATE
+========================================================= */
+
+.big {
+    width: 100%;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.status {
+    text-align: center;
+
+    color: var(--gold);
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    min-height: 14px;
+}
+
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+.result {
+    margin-top: 30px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 260px;
+
+    gap: 28px;
+}
+
+.result h2 {
+    font-size: 45px;
+    margin: 0 0 20px;
+}
+
+.result img {
+    max-width: 100%;
+    display: block;
+}
+
+.result-actions {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    justify-content: center;
+}
+
+.secondary {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid rgba(245,200,61,.4);
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes slowPan {
+    from {
+        transform: scale(1.08) translate(-1%,-1%);
+    }
+
+    to {
+        transform: scale(1.13) translate(1%,1%);
+    }
+}
+
+@keyframes float {
+    0%,100% {
+        transform: rotate(3deg) translateY(0);
+    }
+
+    50% {
+        transform: rotate(1deg) translateY(-18px);
+    }
+}
+
+@keyframes shine {
+    0%,55% {
+        transform: translateX(-130%);
+    }
+
+    75%,100% {
+        transform: translateX(130%);
+    }
+}
+
+@keyframes wobble {
+    0%,100% {
+        transform: rotate(-8deg);
+    }
+
+    50% {
+        transform: rotate(-4deg) translateY(-4px);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes flowerFloat {
+    0%,100% {
+        transform: translateY(0) rotate(0);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(12deg);
+    }
+}
+
+@keyframes marquee {
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes pulse {
+    50% {
+        opacity: .35;
+        transform: scale(.7);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:900px) {
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 60px 6vw;
+    }
+
+    .hero-art {
+        height: 520px;
+    }
+
+    .hero-copy {
+        text-align: center;
+    }
+
+    .hero-sub {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cta-row {
+        justify-content: center;
+    }
+
+    .builder-grid,
+    .result {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-strip {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .poster {
+        width: min(430px,88vw);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px) {
+
+    .nav {
+        padding: 0 4vw;
+        height: 65px;
+    }
+
+    .nav-pill {
+        display: none;
+    }
+
+    .hero {
+        min-height: auto;
+        padding-top: 60px;
+    }
+
+    .hero-art {
+        height: 430px;
+    }
+
+    .ring-1 {
+        width: 380px;
+        height: 380px;
+    }
+
+    .ring-2 {
+        width: 430px;
+        height: 430px;
+    }
+
+    h1 {
+        letter-spacing: -3px;
+    }
+
+    .hero-sub {
+        font-size: 15px;
+    }
+
+    .feature {
+        padding: 20px 5vw;
+    }
+
+    .builder-shell {
+        padding: 45px 4vw;
+    }
+
+    .field-row {
+        grid-template-columns: 1fr;
+    }
+
+    .poster-stamp {
+        right: -8px;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .controls input {
+        width: 100%;
+    }
+}
